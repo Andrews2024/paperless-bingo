@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        <div id="add-user">
+            <!--List current user names-->
+            <h1> Existing Users</h1>
+            <ul>
+                {% for user in user_list %}
+                <li>{{ user }}</li>
+                {% endfor %}
+            </ul>
+            
+            <!--Form to add new users-->
+            <form action="{{ url_for('add_user') }}" method="post">
+                <label for="name">Name: </label><br>
+                <input type="text" id="name" name="name"><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </body>
+</html>

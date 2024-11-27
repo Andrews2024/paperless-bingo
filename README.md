@@ -33,6 +33,7 @@
 5. Submit entries to HTML template
 
 ## Database Design
+Because this intended to be a low-key bingo game hosted locally, I'm currently forgoing using a proper RDBMS like Postgres. Instead, there are two JSON files: `users.json` and `entries.json`.
 ```
 CREATE TABLE User {
     name TEXT,
