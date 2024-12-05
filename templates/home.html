@@ -1,62 +1,57 @@
-<!DOCTYPE html>
-<html>
-    <head>
-
-    </head>
-
-    <body>
-        <div id="add-user">
-            <!--List current user names-->
-            <h1> Existing Users</h1>
-            <ul>
-                {% for user in user_list %}
-                <li>{{ user }}</li>
-                {% endfor %}
-            </ul>
-            
-            <!--Form to add new users-->
-            <form action="{{ url_for('add_user') }}" method="post">
-                <label for="name">Name: </label><br>
-                <input type="text" id="name" name="name">
-                <br><input type="submit" value="Submit">
-            </form>
-        </div>
-        <div id="add-entry">
-            <h1>Add Entry</h1>
-            <ul></ul>
-                {% for entry in entry_list %}
-                <li><strong>{{ entry.name }}:</strong> {{ entry.event }}</li>
-                {% endfor %}
-            </ul><br>
-            
-            <!--Form to add new entries-->
-            <form action="{{ url_for('add_entry') }}" method="post">
-                <label for="name">Name: </label><br>
-                <select id="dropdown" name="dropdown">
-                    <option value="free space">free space</option>
-                    {% for user in user_list %}
-                    <option value="{{ user }}">{{ user }}</option>
-                    {% endfor %}
-                </select><br>
-                <label for="event">Event: </label><br>
-                <input type="text" id="event" name="event">
-                <br><input type="submit" value="Submit">
-            </form>
-        </div>
-        <div id="start-bingo">
-            <h1>Select User and Start Bingo</h1>
-            <form action="{{ url_for('load_bingo') }}" method="get">
-                <label for="name">Name: </label><br>
-                <select id="user" name="user">
-                    {% for user in user_list %}
-                    <option value="{{ user }}">{{ user }}</option>
-                    {% endfor %}
-                </select><br>
-                <br><input type="submit" value="Submit">
-            </form>
-            {% for message in get_flashed_messages() %}
-            <p>Error: {{ message }}</p>
+{% extends "template.html" %}
+{% block head %}{{super()}}{% endblock %}
+{% block content %}
+<div id="add-user">
+    <!--List current user names-->
+    <h1> Existing Users</h1>
+    <ul>
+        {% for user in user_list %}
+        <li>{{ user }}</li>
+        {% endfor %}
+    </ul>
+    
+    <!--Form to add new users-->
+    <form action="{{ url_for('add_user') }}" method="post">
+        <label for="name">Name: </label><br>
+        <input type="text" id="name" name="name">
+        <br><input type="submit" value="Submit">
+    </form>
+</div>
+<div id="add-entry">
+    <h1>Add Entry</h1>
+    <ul></ul>
+        {% for entry in entry_list %}
+        <li><strong>{{ entry.name }}:</strong> {{ entry.event }}</li>
+        {% endfor %}
+    </ul><br>
+    
+    <!--Form to add new entries-->
+    <form action="{{ url_for('add_entry') }}" method="post">
+        <label for="name">Name: </label><br>
+        <select id="dropdown" name="dropdown">
+            <option value="free space">free space</option>
+            {% for user in user_list %}
+            <option value="{{ user }}">{{ user }}</option>
             {% endfor %}
-        </div>
-    </body>
-</html>
+        </select><br>
+        <label for="event">Event: </label><br>
+        <input type="text" id="event" name="event">
+        <br><input type="submit" value="Submit">
+    </form>
+</div>
+<div id="start-bingo">
+    <h1>Select User and Start Bingo</h1>
+    <form action="{{ url_for('load_bingo') }}" method="get">
+        <label for="name">Name: </label><br>
+        <select id="user" name="user">
+            {% for user in user_list %}
+            <option value="{{ user }}">{{ user }}</option>
+            {% endfor %}
+        </select><br>
+        <br><input type="submit" value="Submit">
+    </form>
+    {% for message in get_flashed_messages() %}
+    <p>Error: {{ message }}</p>
+    {% endfor %}
+</div>
+{% endblock %}

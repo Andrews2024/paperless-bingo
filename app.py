@@ -13,6 +13,7 @@ def hello():
     return render_template("home.html", user_list = read_users(),
                             entry_list = read_entries())
 
+
 @app.route('/add-user', methods = ['POST'])
 def add_user():
     # Get name to add and list to add to
@@ -28,6 +29,7 @@ def add_user():
         json.dump({"users": user_list}, users_file)
 
     return redirect('/')
+
 
 @app.route('/add-entry', methods = ['POST'])
 def add_entry():
@@ -47,6 +49,7 @@ def add_entry():
         json.dump({"entries": entry_list}, entry_file)
 
     return redirect('/')
+
 
 @app.route('/load-bingo', methods = ['GET'])
 def load_bingo():
@@ -69,9 +72,6 @@ def load_bingo():
     return render_template('bingo.html', free = free_space,
                             squares = squares)
 
-@app.route('/check-bingo', methods = ['POST'])
-def check_bingo():
-    return "Hi"
 
 if __name__ == "__main__":
     app.run(debug=True)
