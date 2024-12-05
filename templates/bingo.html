@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        <div id="board">
+            <form action="{{ url_for('check_bingo') }}" method="post">
+                {% for i in range(12) %}
+                <input type="checkbox" id="{{i}}" name="{{i}}" value="{{i}}">
+                <label for="{{i}}"><strong>{{squares[i].name}}:</strong> {{squares[i].event}}</label>
+
+                {% if (i + 1) % 5 == 0 and i > 0 %}
+                <br>
+                {% endif %}
+                {% endfor %}
+
+                <input type="checkbox" id="{{i}}" name="{{i}}" value="{{i}}">
+                <label for="{{i}}"><strong>Free:</strong> {{free.event}}</label>
+
+                {% for i in range(12, 24) %}
+                <input type="checkbox" id="{{i}}" name="{{i}}" value="{{i}}">
+                <label for="{{i}}"><strong>{{squares[i].name}}:</strong> {{squares[i].event}}</label>
+
+                {% if (i + 1) % 5 == 0 and i > 0 %}
+                <br>
+                {% endif %}
+                {% endfor %}<br>
+            </form>
+        </div>
+    </body>
+</html>

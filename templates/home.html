@@ -43,5 +43,20 @@
                 <br><input type="submit" value="Submit">
             </form>
         </div>
+        <div id="start-bingo">
+            <h1>Select User and Start Bingo</h1>
+            <form action="{{ url_for('load_bingo') }}" method="get">
+                <label for="name">Name: </label><br>
+                <select id="user" name="user">
+                    {% for user in user_list %}
+                    <option value="{{ user }}">{{ user }}</option>
+                    {% endfor %}
+                </select><br>
+                <br><input type="submit" value="Submit">
+            </form>
+            {% for message in get_flashed_messages() %}
+            <p>Error: {{ message }}</p>
+            {% endfor %}
+        </div>
     </body>
 </html>

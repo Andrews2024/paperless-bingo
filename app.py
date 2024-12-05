@@ -1,8 +1,12 @@
 import json
+from random import randrange, shuffle
+from uuid import uuid4
+
 from flask import Flask, redirect, render_template, request
 
-from helper import read_users, read_entries
+from helper import read_users, read_entries, sort_entries, validate_enough_options
 app = Flask(__name__)
+app.config['SECRET_KEY'] = str(uuid4())
 
 @app.route('/', methods = ['GET'])
 def hello():
@@ -43,6 +47,31 @@ def add_entry():
         json.dump({"entries": entry_list}, entry_file)
 
     return redirect('/')
+
+@app.route('/load-bingo', methods = ['GET'])
+def load_bingo():
+    # Get resulting options for squares
+    user = request.args.get('user')
+    free_entries, named_entries = sort_entries(user)
+
+    # Make sure we have enough squares
+    if not validate_enough_options(free_entries, named_entries):
+        return redirect('/')
+
+    # Pick random free space option
+    shuffle(free_entries)
+    free_space = free_entries[randrange(0, len(free_entries))]
+
+    # Pick random selection of entries for board
+    shuffle(named_entries)
+    squares = named_entries[:24]
+    
+    return render_template('bingo.html', free = free_space,
+                            squares = squares)
+
+@app.route('/check-bingo', methods = ['POST'])
+def check_bingo():
+    return "Hi"
 
 if __name__ == "__main__":
     app.run(debug=True)
