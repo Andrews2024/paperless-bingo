@@ -1,57 +1,63 @@
 {% extends "template.html" %}
 {% block head %}{{super()}}{% endblock %}
 {% block content %}
-<div id="add-user">
-    <!--List current user names-->
-    <h1> Existing Users</h1>
-    <ul>
-        {% for user in user_list %}
-        <li>{{ user }}</li>
-        {% endfor %}
-    </ul>
-    
-    <!--Form to add new users-->
-    <form action="{{ url_for('add_user') }}" method="post">
-        <label for="name">Name: </label><br>
-        <input type="text" id="name" name="name">
-        <br><input type="submit" value="Submit">
-    </form>
-</div>
-<div id="add-entry">
-    <h1>Add Entry</h1>
-    <ul></ul>
-        {% for entry in entry_list %}
-        <li><strong>{{ entry.name }}:</strong> {{ entry.event }}</li>
-        {% endfor %}
-    </ul><br>
-    
-    <!--Form to add new entries-->
-    <form action="{{ url_for('add_entry') }}" method="post">
-        <label for="name">Name: </label><br>
-        <select id="dropdown" name="dropdown">
-            <option value="free space">free space</option>
-            {% for user in user_list %}
-            <option value="{{ user }}">{{ user }}</option>
+<div id="content" style="display: flex; flex-direction: row; margin: 0 auto; width: fit-content;">
+    <div id="short">
+        <div id="start-bingo" class="m-3 pb-3">
+            <h1>Select User and Start Bingo</h1>
+            <form action="{{ url_for('load_bingo') }}" method="get">
+                <label for="name">Name: </label>
+                <select id="user" name="user">
+                    {% for user in user_list %}
+                    <option value="{{ user }}">{{ user }}</option>
+                    {% endfor %}
+                </select><br>
+                <input type="submit" value="Submit" class="btn btn-primary">
+            </form>
+            {% for message in get_flashed_messages() %}
+            <p class="alert alert-danger">Error: {{ message }}</p>
             {% endfor %}
-        </select><br>
-        <label for="event">Event: </label><br>
-        <input type="text" id="event" name="event">
-        <br><input type="submit" value="Submit">
-    </form>
-</div>
-<div id="start-bingo">
-    <h1>Select User and Start Bingo</h1>
-    <form action="{{ url_for('load_bingo') }}" method="get">
-        <label for="name">Name: </label><br>
-        <select id="user" name="user">
-            {% for user in user_list %}
-            <option value="{{ user }}">{{ user }}</option>
+        </div>
+
+        <div id="add-user" class="m-3 pt-3">
+            <!--List current user names-->
+            <h1>Add Users</h1>
+            <ul>
+                {% for user in user_list %}
+                <li>{{ user }}</li>
+                {% endfor %}
+            </ul>
+            
+            <!--Form to add new users-->
+            <form action="{{ url_for('add_user') }}" method="post">
+                <label for="name">Name: </label>
+                <input type="text" id="name" name="name"><br>
+                <input type="submit" value="Submit" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+    
+    <div id="add-entry" class="m-3">
+        <h1>Add Entry</h1>
+        <ul class="border border-2 border-primary">
+            {% for entry in entry_list %}
+            <li><strong>{{ entry.name }}:</strong> {{ entry.event }}</li>
             {% endfor %}
-        </select><br>
-        <br><input type="submit" value="Submit">
-    </form>
-    {% for message in get_flashed_messages() %}
-    <p>Error: {{ message }}</p>
-    {% endfor %}
+        </ul>
+        
+        <!--Form to add new entries-->
+        <form action="{{ url_for('add_entry') }}" method="post">
+            <label for="name">Name: </label>
+            <select id="dropdown" name="dropdown">
+                <option value="free space">free space</option>
+                {% for user in user_list %}
+                <option value="{{ user }}">{{ user }}</option>
+                {% endfor %}
+            </select><br>
+            <label for="event">Event: </label>
+            <input type="text" id="event" name="event"><br>
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+    </div>
 </div>
 {% endblock %}

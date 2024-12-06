@@ -1,6 +1,9 @@
 {% extends "template.html" %}
 {% block head %}{{super()}}{% endblock %}
 {% block content %}
+<div id="home">
+    <a href="/">Go Back</a>
+</div>
 <div id="board">
     <form>
         {% for i in range(12) %}
