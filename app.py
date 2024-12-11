@@ -68,10 +68,9 @@ def load_bingo():
     # Pick random selection of entries for board
     shuffle(named_entries)
     squares = named_entries[:24]
+    squares.insert(12, free_space)
     
-    return render_template('bingo.html', free = free_space,
-                            squares = squares)
-
+    return render_template('bingo.html', squares = squares)
 
 if __name__ == "__main__":
     app.run(debug=True)

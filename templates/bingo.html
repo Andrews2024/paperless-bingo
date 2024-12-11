@@ -6,25 +6,17 @@
 </div>
 <div id="board">
     <form>
-        {% for i in range(12) %}
-        <input type="checkbox" id="{{i}}" name="{{i}}" value="{{i}}">
-        <label for="{{i}}"><strong>{{squares[i].name}}:</strong> {{squares[i].event}}</label>
-
-        {% if (i + 1) % 5 == 0 and i > 0 %}
-        <br>
-        {% endif %}
-        {% endfor %}
-
-        <input type="checkbox" id="{{i}}" name="{{i}}" value="{{i}}">
-        <label for="{{i}}"><strong>Free:</strong> {{free.event}}</label>
-
-        {% for i in range(12, 24) %}
-        <input type="checkbox" id="{{i}}" name="{{i}}" value="{{i}}">
-        <label for="{{i}}"><strong>{{squares[i].name}}:</strong> {{squares[i].event}}</label>
-
-        {% if (i + 1) % 5 == 0 and i > 0 %}
-        <br>
-        {% endif %}
+        {% set index = namespace(value = 0) %}
+        {% for i in range(5) %}
+        <div class="box-row">
+            {% for j in range(5) %}
+                <input type="checkbox" id="{{index.value}}" name="{{index.value}}" value="{{index.value}}">
+                <label for="{{index.value}}" class="box-label">
+                    <strong>{{squares[index.value].name}}:</strong> {{squares[index.value].event}}
+                </label>
+                {% set index.value = index.value + 1 %}
+            {% endfor %}
+        </div>
         {% endfor %}<br>
     </form>
 </div>

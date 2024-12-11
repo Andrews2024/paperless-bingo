@@ -1,3 +1,4 @@
+/* Used these for home page */
 ul{
     min-height: 5vh;
     max-height: 45vh;
@@ -12,3 +13,34 @@ li {
 input, select, label {
     margin: 5px 2px;
 }
+
+/* Used these for bingo board */
+input[type="checkbox"]  {
+    display: none;
+}
+
+input[type="checkbox"]:not(:checked) + .box-label {
+    background-color: #A19195;
+}
+
+input[type="checkbox"]:checked + .box-label {
+    background-color: #95DAAC;
+ }
+
+ #board {
+    margin: 0 auto; 
+    width: fit-content;
+ }
+
+ .box-label {
+    aspect-ratio: 1/1;
+    text-align: center;
+    height: 15vh;
+    align-content: center;
+ }
+
+ .box-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ }
