@@ -1,12 +1,15 @@
 import json
+from os import environ
 from random import randrange, shuffle
 from uuid import uuid4
 
 from flask import Flask, redirect, render_template, request
 
 from helper import read_users, read_entries, sort_entries, validate_enough_options
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = str(uuid4())
+app.config["SQLALCHEMY_DATABASE_URI"] = environ["DB_URL"]
 
 @app.route('/', methods = ['GET'])
 def hello():

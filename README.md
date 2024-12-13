@@ -35,22 +35,8 @@
 ## Database Design
 ~~Because this intended to be a low-key bingo game hosted locally, I'm currently forgoing using a proper RDBMS like Postgres. Instead, there are two JSON files: `users.json` and `entries.json`.~~  
 The above is still implemented, but when I go to add more features later, I'm going to regret it. The current design doesn't allow for associating multiple users with an entry.
-```
-CREATE TABLE User {
-    name TEXT,
-}
 
-CREATE TABLE Entries {
-    name TEXT,
-    value TEXT,
-    isFree BOOL,
-    PRIMARY KEY (name, value),
-    FOREIGN KEY (name) REFERENCES (User.name)
-}
-```
 # TODO
-* Regret not starting with a DB
-* Design and implement DB tables
 * Connect app to DB
 * Add UI interface for selecting which users are playing
   * Add to filter process for selecting entries for a board

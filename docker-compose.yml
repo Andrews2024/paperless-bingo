@@ -7,3 +7,24 @@ services:
       - .:/app
     expose:
       - 5000
+    depends_on:
+      - db
+    networks:
+      - default
+    environment:
+      DB_URL: postgresql+psycopg2://postgres:postgres@db:5432/bingo
+
+  db:
+    image: postgres
+    container_name: postgres
+    ports:
+      - "5431:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=bingo
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+     - default
